@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Demo</title>
+  <link rel="stylesheet" href="/static/css/bulma.css" />
+</head>
+
+<body>
+  <div class="columns" style="margin-top:10px;">
+    <div class="column">
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">
+            Station : {{id}}
+          </p>
+          <a href="#" class="card-header-icon" aria-label="more options">
+            <span class="icon">
+              <i class="fas fa-angle-down" aria-hidden="true"></i>
+            </span>
+          </a>
+        </header>
+        <div class="card-content">
+          <div class="content" id="wafer">
+             <img src = "{{ path }}" alt = "Tutorials Point" border = "0"/>
+          </div>
+        </div>
+        <footer class="card-footer">
+          
+        </footer>
+      </div>
+    </div>
+    <div class="column">
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">
+            Detail
+          </p>
+          <a href="#" class="card-header-icon" aria-label="more options">
+            <span class="icon">
+              <i class="fas fa-angle-down" aria-hidden="true"></i>
+            </span>
+          </a>
+        </header>
+        <div class="card-content">
+          <div class="content" id="stat_1">
+            <p>p1:</p>
+            <p>p2:</p>
+            <p>p3:</p>
+            <p>p4:</p>
+            <p>rate:</p>
+          </div>
+        </div>
+        <footer class="card-footer">
+          
+        </footer>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  function fetch_data() { 
+    var data = fetch('/data/', {method: 'get'})
+    .then(response => 
+        response.json().then(data => ({
+            data: data,
+            status: response.status
+        })
+    ).then(res => {
+        console.log(res.status, res.data.a)
+    }));
+  }
+  setInterval(fetch_data, 5000);
+</script>
+</html>

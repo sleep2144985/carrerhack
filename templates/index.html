@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title></title>
+  <link rel="stylesheet" href="/static/css/bulma.css" />
+</head>
+
+<body>
+  <div class="columns" style="margin-top:10px">
+    <div class="column">
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">
+            Work Station 1
+          </p>
+          <a href="#" class="card-header-icon" aria-label="more options">
+            <span class="icon">
+              <i class="fas fa-angle-down" aria-hidden="true"></i>
+            </span>
+          </a>
+        </header>
+        <div class="card-content">
+          <div class="content" id="stat1">
+            <p>temperature:</p>
+            <p>pressure:</p>
+            <p>humidity:</p>
+          </div>
+        </div>
+        <footer class="card-footer">
+          <a href="/wafer_detail/?id=1" class="card-footer-item">Wafer detail</a>
+        </footer>
+      </div>
+    </div>
+    <div class="column">
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">
+            Work Station 2
+          </p>
+          <a href="#" class="card-header-icon" aria-label="more options">
+            <span class="icon">
+              <i class="fas fa-angle-down" aria-hidden="true"></i>
+            </span>
+          </a>
+        </header>
+        <div class="card-content">
+          <div class="content" id="stat2">
+            <p>temperature:</p>
+            <p>pressure:</p>
+            <p>humidity:</p>
+          </div>
+        </div>
+        <footer class="card-footer">
+          <a href="/wafer_detail/?id=2" class="card-footer-item">Wafer detail</a>
+        </footer>
+      </div>
+    </div>
+    <div class="column">
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">
+            Work Station 3
+          </p>
+          <a href="/wafer_detail/?id=3" class="card-header-icon" aria-label="more options">
+            <span class="icon">
+              <i class="fas fa-angle-down" aria-hidden="true"></i>
+            </span>
+          </a>
+        </header>
+        <div class="card-content">
+          <div class="content" id="stat3">
+            <p>temperature:</p>
+            <p>pressure:</p>
+            <p>humidity:</p>
+          </div>
+        </div>
+        <footer class="card-footer">
+          <a href="/wafer_detail/?id=4" class="card-footer-item">Wafer detail</a>
+        </footer>
+      </div>
+    </div>
+    <div class="column">
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">
+            Work Station 4
+          </p>
+          <a href="/wafer_detail/" class="card-header-icon" aria-label="more options">
+            <span class="icon">
+              <i class="fas fa-angle-down" aria-hidden="true"></i>
+            </span>
+          </a>
+        </header>
+        <div class="card-content">
+          <div class="content" id="stat4">
+            <p>temperature:</p>
+            <p>pressure:</p>
+            <p>humidity:</p>
+          </div>
+        </div>
+        <footer class="card-footer">
+          <a href="/wafer_detail/" class="card-footer-item">Wafer detail</a>
+        </footer>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  function fetch_data() { 
+    var data = fetch('/data/', {method: 'get'})
+    .then(response => 
+        response.json().then(data => ({
+            data: data,
+            status: response.status
+        })
+    ).then(res => {
+        for(let i=1;i<=4;i++) {
+            elem = document.getElementById('stat' + i);
+            elem.innerHTML = '<p>temperature:<font color="red">' + Math.round(res.data['stat' + i]['temperature'] *100)/100 + "</font></p>"
+            elem.innerHTML += '<p>pressure:<font color="red">' + Math.round(res.data['stat' + i]['pressure'] *100)/100+ "</font></p>"
+            elem.innerHTML += '<p>humidity:<font color="red">' + Math.round(res.data['stat' + i]['humidity'] *100)/100+ "</font></p>"
+        }
+    }));
+  }
+  setInterval(fetch_data, 5000);
+  fetch_data();
+</script>
+</html>
